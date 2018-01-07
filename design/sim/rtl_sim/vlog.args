@@ -1,0 +1,3 @@
++libext+.sv
+-y ./../../rtl/verilog
+./../../rtl/verilog/led_test_tb.sv
