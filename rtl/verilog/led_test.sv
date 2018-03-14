@@ -1,20 +1,20 @@
 
-`define SIMULATION
+//`define SIMULATION
 
 module led_test
 `ifdef SIMULATION
   #(parameter NUM_COUNT = 5)
 `else
-   #(parameter NUM_COUNT = 50000000)
+  #(parameter NUM_COUNT = 50000000)
 `endif
 
    (
-    input 	 clk, rst_n,
+    input        clk, rst_n,
     output logic led0
     );
 
-   int 		 count_r, count_n;
-   logic 	 led0_r, led0_n;
+   int           count_r, count_n;
+   logic         led0_r, led0_n;
 
    assign led0 = led0_r;
 

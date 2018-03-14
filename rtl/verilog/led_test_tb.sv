@@ -15,7 +15,8 @@
 //  end
 //endprogram
 
-`include "defines.sv"
+//`include "defines.sv"
+`define GATE_SIM
 
 module   led_test_tb;
 
@@ -43,7 +44,7 @@ module   led_test_tb;
       repeat (30) @ (posedge clk);
       $finish;
    end
-`ifdef SIMULATION
+`ifdef GATE_SIM
    led_test  dut(.*);
 `else
    led_test #(.NUM_COUNT(NUM_COUNT)) dut(.*);

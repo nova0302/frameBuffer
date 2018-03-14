@@ -1,5 +1,5 @@
 
-QUARTUS_ROOT?= C:/intelFPGA_lite/17.0/quartus
+QUARTUS_ROOT?= C:/tools/hardware/hdl/intelFPGA_lite/17.0/quartus
 DEVICE_FAMILY = cycloneive
 
 PROJECT = led_test

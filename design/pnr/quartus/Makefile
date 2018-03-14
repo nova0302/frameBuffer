@@ -99,3 +99,8 @@ program: output_files/$(PROJECT).sof
 
 netlist:
 	quartus_eda $(PROJECT) $(EDA_ARGS)
+
+help:
+	@echo "--   make for project build and synthesis!!"
+	@echo "--   make program for sof download!!"
+	@echo "--   make netlist for netlist generation for gate simulation!!"

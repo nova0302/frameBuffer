@@ -11,7 +11,7 @@ set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda
 set_global_assignment -name SEARCH_PATH "./../../../rtl/verilog"
 #set_global_assignment -name SEARCH_PATH "./../../../rtl/vhdl"
 
-set_location_assignment PIN_R12 -to clk
+set_location_assignment PIN_R8 -to clk
 set_location_assignment PIN_J15 -to rst_n
 set_location_assignment PIN_A15 -to led0
 
