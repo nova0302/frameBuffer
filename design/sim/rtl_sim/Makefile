@@ -7,7 +7,7 @@ VSIM =  vsim
 
 WORK = rtl_work
 
-VLOG_OPTIONS = -sv -lint -y $(VDIR) +libext+.sv +incdir+$(VDIR) +define+DEBUG
+VLOG_OPTIONS = -sv -lint -y $(VDIR) +libext+.sv +incdir+$(VDIR) +define+SIMULATION
 VSIM_OPTIONS = -c -novopt -do "run -all; quit"
 GVSIM_OPTIONS = -novopt -do "add wave *; radix -hex; run -all; quit"
 
@@ -40,8 +40,6 @@ lib:
 	$(V)if [ -d $(WORK) ]; then vdel -lib $(WORK) -all && vlib $(WORK); fi
 	@if [ -d $(WORK) ]; then vdel -lib $(WORK) && vlib $(WORK); fi
 	@if [ ! -d $(WORK) ]; then vlib $(WORK); fi
-
-
 
 clean:
 	rm -rf $(WORK) transcript *.wlf

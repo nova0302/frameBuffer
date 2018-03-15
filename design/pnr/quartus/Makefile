@@ -12,9 +12,12 @@ SRCS = ./../../../rtl/verilog/led_test.sv
 
 ###################################################################
 # Part, Family, Boardfile DE1 or DE2
-FAMILY = "Cyclone IV E"
-PART = EP4CE22F17C6
-BOARDFILE = DE0_Nano_Pins
+#FAMILY = "Cyclone IV E"
+#PART = EP4CE22F17C6
+#BOARDFILE = DE0_Nano_Pins
+FAMILY = "MAX 10"
+PART = 10M50DAF484C7G
+BOARDFILE = DE10_LITE_Pins
 ###################################################################
 
 ###################################################################
