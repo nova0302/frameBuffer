@@ -20,8 +20,8 @@
 
 module   led_test_tb;
 
-   timeunit 1ns;
-   timeprecision 1ns;
+//   timeunit 1ns;
+//   timeprecision 1ns;
 
    localparam PERIOD = 10;
    localparam NUM_COUNT = 5;

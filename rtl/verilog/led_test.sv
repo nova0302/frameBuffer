@@ -1,5 +1,5 @@
 
-//`define SIMULATION
+`define SIMULATION
 
 module led_test
 `ifdef SIMULATION
