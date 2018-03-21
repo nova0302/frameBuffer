@@ -8,16 +8,17 @@
 PROJECT = led_test
 TOP_LEVEL_ENTITY = led_test
 ASSIGNMENT_FILES = $(PROJECT).qpf $(PROJECT).qsf
-SRCS = ./../../../rtl/verilog/led_test.sv
-
+SRCS = ./../../../rtl/verilog/led_test.sv \
+	./../../../rtl/verilog/myPkg.sv
 ###################################################################
 # Part, Family, Boardfile DE1 or DE2
 #FAMILY = "Cyclone IV E"
 #PART = EP4CE22F17C6
 #BOARDFILE = DE0_Nano_Pins
+
 FAMILY = "MAX 10"
 PART = 10M50DAF484C7G
-BOARDFILE = DE10_LITE_Pins
+BOARDFILE = de10_lite_pins
 ###################################################################
 
 ###################################################################
@@ -33,7 +34,7 @@ all: output_files/smart.log output_files/$(PROJECT).asm.rpt output_files/$(PROJE
 clean:
 	rm -rf *.rpt *.chg smart.log *.htm *.eqn *.pin *.sof *.pof \
 	db incremental_db *.smsg *.summary *.qpf *.qsf *.jdi *.qws \
-	simulation *.done transcript output_files
+	simulation *.done transcript output_files *.sld
 
 map: output_files/smart.log output_files/$(PROJECT).map.rpt
 fit: output_files/smart.log output_files/$(PROJECT).fit.rpt
@@ -44,13 +45,20 @@ smart: output_files/smart.log
 ###################################################################
 # Executable Configuration
 ###################################################################
-
-MAP_ARGS = --family=$(FAMILY) --write_settings_files=on $(addprefix --source=,$(SRCS))
+ifdef GATE_SIM
+MAP_ARGS = --family=$(FAMILY) --write_settings_files=on \
+	     $(addprefix --source=,$(SRCS)) \
+	   --verilog_macro="SIMULATION=1"
+else
+MAP_ARGS = --family=$(FAMILY) --write_settings_files=on \
+	     $(addprefix --source=,$(SRCS)) 
+endif
 FIT_ARGS = --part=$(PART) --read_settings_files=on
 ASM_ARGS =
 STA_ARGS = --sdc=led_test.sdc
 EDA_ARGS = --simulation --tool=modelsim --format=verilog\
 --output_directory=./../../sim/gate_sim
+
 
 ###################################################################
 # Target implementations
@@ -93,6 +101,7 @@ output_files/asm.chg:
 # Programming the device
 ###################################################################
 
+#program: $(PROJECT).sof
 program: output_files/$(PROJECT).sof
 	quartus_pgm --no_banner --mode=jtag -o "P;$<"
 
