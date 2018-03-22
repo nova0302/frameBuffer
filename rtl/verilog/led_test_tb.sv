@@ -31,6 +31,15 @@ module   led_test_tb;
    logic clk, rst_n=1'b0, btn=1'b1;
    logic [3:0] sw = 4'd0;
    logic [7:0] seg[0:2];
+   initial begin
+      $display("$left(seg)      : %0d", $left(seg));
+      $display("$right(seg)     : %0d", $right(seg));
+      $display("$low(seg)       : %0d", $low(seg));
+      $display("$high(seg)      : %0d", $high(seg));
+      $display("$dimensions(seg): %0d", $dimensions(seg));
+      $finish;
+   end
+   
    /*
     initial begin
     for( sw=0; sw<10; sw++)begin
@@ -42,6 +51,7 @@ module   led_test_tb;
    end
     */
    
+   /*
    initial begin
       repeat(2) @(posedge clk);
       rst_n <= 1'b1;
@@ -73,6 +83,7 @@ module   led_test_tb;
 `else
    led_test #(.NUM_COUNT(NUM_COUNT)) dut(.*);
 `endif
+    */
 
 endmodule // led_test_tb
 
