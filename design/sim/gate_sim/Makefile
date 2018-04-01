@@ -1,10 +1,10 @@
 
 QUARTUS_ROOT?= C:/tools/hardware/hdl/intelFPGA_lite/17.0/quartus
-#DEVICE_FAMILY = cycloneive
-DEVICE_FAMILY = maxv
+DEVICE_FAMILY = cycloneive
+#DEVICE_FAMILY = maxv
 
 PROJECT = led_test
-TB = ./../../../rtl/verilog/$(PROJECT)_tb.sv
+TB = ./../../../rtl/verilog/$(PROJECT)_tb.v
 TB_MODULE = $(PROJECT)_tb
 
 NET_LIST = $(PROJECT).vo
@@ -21,7 +21,7 @@ VSIM_ARGS = -quiet -t ps +transport_int_delays +transport_path_delays \
 
 # -L altera_lnsim \
 
-WORK = gate_work
+WORK = work
 
 V?=@
 all: lib com sim
@@ -44,9 +44,13 @@ lib:
 
 $(NET_LIST): 
 	$(V)echo " "
+	$(V)echo " ------- cleaning the directory for netlist generation for cyclone device !!!!! -----------"
+	$(V)make -C ./../../pnr/quartus/ clean
+	$(V)echo " ------- Building the project for gate simulations for cyclone device !!!!! -----------"
+	$(V)make -C ./../../pnr/quartus/ GATE_SIM=1
 	$(V)echo " ------- Generating netlist if it has'n benn generated yet !!!!! -----------"
-	$(V)make -C ./../../pnr/quartus/ netlist
+	$(V)make -C ./../../pnr/quartus/ netlist 
 clean:
 	$(V)echo " "
-	$(V)echo " ------- Clearing this folder!!!!! ---------"
+	$(V)echo " ------- Clearing up this folder!!!!! ---------"
 	$(V)rm -rf *.vo *.sdo *.xrf *.sft transcript $(WORK) *.wlf *.csd verilog_libs *.vo *.sdo *.sft *.wlf *.tcl

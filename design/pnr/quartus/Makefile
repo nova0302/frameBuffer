@@ -8,17 +8,19 @@
 PROJECT = led_test
 TOP_LEVEL_ENTITY = led_test
 ASSIGNMENT_FILES = $(PROJECT).qpf $(PROJECT).qsf
-SRCS = ./../../../rtl/verilog/led_test.sv \
-	./../../../rtl/verilog/myPkg.sv
+SRCS = ./../../../rtl/verilog/led_test.v 
+
 ###################################################################
 # Part, Family, Boardfile DE1 or DE2
-#FAMILY = "Cyclone IV E"
-#PART = EP4CE22F17C6
-#BOARDFILE = DE0_Nano_Pins
-
+ifdef GATE_SIM
+FAMILY = "Cyclone IV E"
+PART = EP4CE22F17C6
+BOARDFILE = DE0_Nano_Pins
+else
 FAMILY = "MAX 10"
 PART = 10M50DAF484C7G
 BOARDFILE = de10_lite_pins
+endif
 ###################################################################
 
 ###################################################################

@@ -1,9 +1,7 @@
 
 import myPkg::seg_drv;
-
 //`define SIMULATION
 //`define PACKED
-
 module led_test #(parameter NUM_SEG=6)
    (
     input 		    clk, rst_n, btn,
@@ -42,7 +40,8 @@ module led_test #(parameter NUM_SEG=6)
       end
    endgenerate
 `else
-   always_comb
+   //always_comb
+   always@(*)
      for(int i=0; i<NUM_SEG; i++)
        seg[i] = seg_drv(sw_r[i]);
 `endif // !`ifdef GEN_BLK
