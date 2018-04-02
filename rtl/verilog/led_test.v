@@ -26,18 +26,21 @@ module led_test #(parameter NUM_SEG=6)
 	   sw_r[i+1] <= sw_r[i];
 	end
      end
+   // part selection works for generate block but not always block. hmm!!
 `ifdef GEN_BLK   
    genvar k;
    generate
-      for(k=0; k<NUM_SEG; k=k+1) begin:SEG
-	 assign seg[k*8+:8] = seg_drv(sw_r[k]);
+      for(k=0; k<NUM_SEG-1; k=k+1) begin:SEG
+	 assign seg[k*8+7:k*8] = seg_drv(sw_r[k]);
+	 //assign seg[k*8+:8] = seg_drv(sw_r[k]);
       end
    endgenerate
 `else
    integer j;
    always@(*)
      for(j=0; j<NUM_SEG; j=j+1)begin
-   	seg[j*8 +: 8] = seg_drv(sw_r[j]);
+   	seg[j*8+7 : j*8] = seg_drv(sw_r[j]);
+   	//seg[j*8 +: 8] = seg_drv(sw_r[j]);
      end
    
 `endif
