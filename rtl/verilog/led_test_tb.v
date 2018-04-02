@@ -1,22 +1,4 @@
-//+++++++++++++++++++++++++++++++++++++++++++++++++
-// Simple Program with ports
-//+++++++++++++++++++++++++++++++++++++++++++++++++
-//program simple(input clk, led, output logic rst_n);
-//   //=================================================
-//   // Initial block inside program block
-//   //=================================================
-//   initial begin
-//     $monitor("@%0tns led = %0d",$time, led);
-//     rst_n = 0;
-//     #20 rst_n = 1;
-//     @ (posedge clk);
-//     repeat (100) @ (posedge clk);
-//     $finish;
-//  end
-//endprogram
-
-//`include "defines.sv"
-`define GATE_SIM
+//`define GATE_SIM
 
 `timescale 1ns/10ps
 module   led_test_tb;
@@ -26,7 +8,6 @@ module   led_test_tb;
 
    reg clk, rst_n=1'b0, btn=1'b1;
    reg [3:0] sw = 4'd0;
-   //reg [7:0] seg0, seg1, seg2, seg3, seg4, seg5;
    wire [NUM_SEG*8-1:0] seg;
    integer 		i;
    task t_drv (input [3:0] isw);
@@ -45,16 +26,16 @@ module   led_test_tb;
       repeat(5)@(clk);
       $finish;
    end
-   always@(clk)
-     $display("@%4t sw:%h, seg0:%h, seg1:%h, seg2:%h, seg3:%h, seg4:%h, seg5:%h",
+   always@(posedge clk)
+     $display("@%4tns sw:%h, seg0:%h, seg1:%h, seg2:%h, seg3:%h, seg4:%h, seg5:%h",
 	      $time, 
 	      sw,
-	      inv_seg_drv(seg[8*0+7:8*0]), 
-	      inv_seg_drv(seg[8*1+7:8*1]), 
-	      inv_seg_drv(seg[8*2+7:8*2]), 
-	      inv_seg_drv(seg[8*3+7:8*3]), 
-	      inv_seg_drv(seg[8*4+7:8*4]), 
-	      inv_seg_drv(seg[8*5+7:8*5]));
+	      inv_seg_drv(seg[8*0+:8]), 
+	      inv_seg_drv(seg[8*1+:8]), 
+	      inv_seg_drv(seg[8*2+:8]), 
+	      inv_seg_drv(seg[8*3+:8]), 
+	      inv_seg_drv(seg[8*4+:8]), 
+	      inv_seg_drv(seg[8*5+:8]));
    
    initial begin
       clk <= 1'b1;
@@ -63,55 +44,56 @@ module   led_test_tb;
 
 `ifdef GATE_SIM
    //led_test  dut(.*);
-   led_test dut
-     (
-      .clk    (clk  )
-      ,.rst_n  (rst_n)
-      ,.btn    (btn  )
-      ,.sw     (sw   )
-      ,.seg   (seg )	);
+   //led_test dut
+   //  (
+   //   .clk     (clk  )
+   //   ,.rst_n  (rst_n)
+   //   ,.btn    (btn  )
+   //   ,.sw     (sw   )
+   //   ,.seg    (seg  ));
+   led_test dut(.*);
 `else
    led_test #(.NUM_SEG(NUM_SEG)) dut(.*);
 `endif
 
-   
-   /*
-    initial begin
-    for( sw=0; sw<10; sw++)begin
-    //$display("sw:%0d sw:%4d", sw, inv_seg_drv(seg_drv(sw)));
-    $display("sw:%0d seg:%0b", sw, seg_drv(sw));
-      end
-    #50;
-    $finish;
-   end
-    */
-   
-   /*
-    initial begin
-    repeat(2) @(posedge clk);
-    rst_n <= 1'b1;
-    for(int i=0; i<4; i++) begin
-    @(posedge clk);
-    sw = sw+1;
-    btn = 1'b0;
-    @(posedge clk);
-    btn = 1'b1;
-      end
-    repeat(3) @(posedge clk);
-    $finish;
-   end
-    
-    always@(posedge clk)
-    $display("@%5t btn:%0b sw:%0x seg0:%0x seg1:%0x seg2:%0x", 
-    $time, btn, sw, 
-    inv_seg_drv(seg[0]), 
-    inv_seg_drv(seg[1]), 
-    inv_seg_drv(seg[2]),  );
-    
-    
-    */
-
 endmodule // led_test_tb
+
+/*
+ initial begin
+ for( sw=0; sw<10; sw++)begin
+ //$display("sw:%0d sw:%4d", sw, inv_seg_drv(seg_drv(sw)));
+ $display("sw:%0d seg:%0b", sw, seg_drv(sw));
+      end
+ #50;
+ $finish;
+   end
+ */
+
+/*
+ initial begin
+ repeat(2) @(posedge clk);
+ rst_n <= 1'b1;
+ for(int i=0; i<4; i++) begin
+ @(posedge clk);
+ sw = sw+1;
+ btn = 1'b0;
+ @(posedge clk);
+ btn = 1'b1;
+      end
+ repeat(3) @(posedge clk);
+ $finish;
+   end
+ 
+ always@(posedge clk)
+ $display("@%5t btn:%0b sw:%0x seg0:%0x seg1:%0x seg2:%0x", 
+ $time, btn, sw, 
+ inv_seg_drv(seg[0]), 
+ inv_seg_drv(seg[1]), 
+ inv_seg_drv(seg[2]),  );
+ 
+ 
+ */
+
 
 //logic [15:0] buffer[0:15];
 //   int 		counter, counter_n;
