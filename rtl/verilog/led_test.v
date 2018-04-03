@@ -35,9 +35,9 @@ module led_test #(parameter NUM_SEG=6)
 	 assign seg[k*8+:8] = seg_drv(sw_r[k]);
       end
    endgenerate
-   
-   
-endmodule // led
+endmodule // led_test
+
+ 
 
 
 
