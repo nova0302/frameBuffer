@@ -16,7 +16,8 @@ _VSRCS=$(DUT).v $(DUT)_tb.v
 VSRCS =$(patsubst %,$(VDIR)/%,  $(_VSRCS))
 #VSRCS =$(wildcard $(VDIR)/*.sv)
 
-DUT  = led_test
+#DUT  = led_test
+DUT  = rrarb
 TB   = $(DUT)_tb
 V=@
 all: lib com sim
