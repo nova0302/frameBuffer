@@ -1,4 +1,4 @@
-
+//http://csg.csail.mit.edu/6.375/6_375_2006_www/handouts/lectures/L03-Verilog-Design-Examples.pdf
 `timescale 1ns/10ps
 module led_test #(parameter NUM_SEG=6)
    (
@@ -12,10 +12,10 @@ module led_test #(parameter NUM_SEG=6)
    wire 		   catch = ~btn & btn_dly;
    always@(posedge clk)
      btn_dly <= btn;
-
+   //`define AA
    reg [3:0] 		   sw_r[0:NUM_SEG-1]; //packed array
 
-   integer 		   i;
+   integer 				 i;
    always@(posedge clk, negedge rst_n)
      if(!rst_n)
        for(i=0; i<NUM_SEG-1; i=i+1)begin
@@ -37,7 +37,7 @@ module led_test #(parameter NUM_SEG=6)
    endgenerate
 endmodule // led_test
 
- 
+
 
 
 
